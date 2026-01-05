@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*$py.class
+.venv/
+venv/
+env/
+
+# PyCharm / IDE
+.idea/
+
+# 其他
+.DS_Store
+Thumbs.db
+*.log

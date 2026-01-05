@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn instance to serve myblog
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/myblog
+Environment="PATH=/home/ubuntu/myblog/venv/bin"
+ExecStart=/home/ubuntu/myblog/venv/bin/gunicorn -w 2 -b 0.0.0.0:5000 blog_v1:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
