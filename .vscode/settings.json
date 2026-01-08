@@ -1,5 +1,30 @@
 {
     "codingcopilot.enableCompletionLanguage": {
         "scmInput": false
-    }
+    },
+    "sqltools.connections": [
+        {
+            "name": "Local MySQL",
+            "driver": "MySQL",
+            "server": "localhost",
+            "port": 3306,
+            "username": "root",
+            "password": "cwbhyd",
+            "database": "test"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "记账数据库",
+            "database": "finance_db",
+            "username": "root"
+        }
+    ]
 }

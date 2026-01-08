@@ -1,4 +1,15 @@
-import pymysql# 导入模块
+import pymysql
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
+# 导入模块
 #链接数据库
 """try:
     connection = pymysql.connect(
@@ -30,11 +41,11 @@ finally:
 #用with上下文管理器更方便易用
 try:
     with pymysql.connect(
-        host='localhost',
+        host=DB_HOST,
         port=3306,
-        user='root',
-        password='cwbhyd',
-        database='myblog',
+        user=DB_USER,
+        password=DB_PASSWORD,
+        database='finance_db',
         charset='utf8mb4'
 
     ) as connection:
@@ -47,4 +58,7 @@ try:
 
 except Exception as e:
     print("无法连接或未查询到",e)
+
+
+
 
