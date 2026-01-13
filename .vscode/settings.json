@@ -26,5 +26,6 @@
             "database": "finance_db",
             "username": "root"
         }
-    ]
+    ],
+    "livePreview.defaultPreviewPath": "/v1.html"
 }
