@@ -15,6 +15,6 @@ env/
 .DS_Store
 Thumbs.db
 *.log
-pd.env
-
+.env
+.vscode/settings.json
 *:Zone.Identifier

@@ -3,6 +3,7 @@
         "scmInput": false
     },
     "sqltools.connections": [
+
         {
             "name": "Local MySQL",
             "driver": "MySQL",
@@ -24,6 +25,20 @@
             "driver": "MySQL",
             "name": "记账数据库",
             "database": "finance_db",
+            "username": "root"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "sql必知必会练习示例",
+            "database": "learn",
             "username": "root"
         }
     ],
