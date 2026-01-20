@@ -25,3 +25,13 @@ sql语句有两种注释方式：这是第一种，前面加上两条杠，如�
 还有一种是多行注释，是由/*和*/包围的注释，可以跨多行，如：
 /*这样
 还有这样*/
+SELECT prod_name FROM Products ORDER BY prod_name;--表示检索某种的某个列，并将结果按照一定的规则排序，此句表示按照字母顺序对产品名称进行排序。并且在SELECT语句中ORDER BY必须为最后一个子句。否则会报错
+SELECT prod_id,prod_name,prod_price FROM Products ORDER BY prod_price,prod_name;
+/*注意此时后面列的顺序会影响排序规则，因此务必按照需要排序
+的顺序来进行写语句，在本句中会先根据price列进行排序，然后基于排序后的值，再根据price列相
+同的行进行name列的排序，这个子句要求price列需要有重复的值，这样才能再排序后再次进行排序。
+除了直接使用列名，还支持使用相对位置，例如在表中id列的位置为1，name列的位置为2，price列的位置为3，则可以写成*/
+SELECT prod_id,prod_name,prod_price FROM Products ORDER BY 3,2;
+/*这种方式一般适用于列名较长的情况，一般
+不使用,注意这个3和2是相对于检索的列的位置，而不是在表中的位置。*/
+SELECT prod_id,prod_name,prod_price FROM Products ORDER BY 3 DESC;--DESC关键字表示降序排列

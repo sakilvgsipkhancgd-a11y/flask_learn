@@ -1,9 +1,7 @@
-from dotenv import load_dotenv
-import os
+def decorated_function(*args,**kwargs):#这个是原函数，包括两个参数,这两个参数作用分别有各自的作用如下：
+    print("args:",args)
+    print("kwargs:",kwargs)
 
-load_dotenv()
 
-print(f"DB_HOST: '{os.getenv('DB_HOST')}'")
-print(f"DB_USER: '{os.getenv('DB_USER')}'")
-print(f"DB_PASSWORD: '{os.getenv('DB_PASSWORD')}'")
-print(f"DB_NAME: '{os.getenv('DB_NAME')}'")
+decorated_function(1,2,3,name="liubei",age=25)
+
