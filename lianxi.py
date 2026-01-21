@@ -51,25 +51,13 @@ def get_db_connection():
 
 
 app = Flask(__name__)
-r = "abcd1234"
+
 
 @app.route('/Customers', methods=['POST'])
+@auth_re
 def Customers() -> Union[dict, Response]: # type: ignore
-    r = request.json.get('r')
 
-    if not r:
-        return jsonify({'code': 1,'msg': '参数错误'})
-    if r != "abcd1234":
-        return jsonify({'code': 2,'msg': '参数不合法'})
-    if r == "abcd1234":
-        with pymysql.connect(
-            host=os.getenv('DB_HOST'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD'),
-            db=os.getenv('DB_NAME'),
-            port=3306,
-            charset="utf8mb4"
-        ) as connection:
+
             with connection.cursor() as cursor:
                 cursor.execute("SELECT prod_name FROM Products")
                 m = cursor.fetchall()
