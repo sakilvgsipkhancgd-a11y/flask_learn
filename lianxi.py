@@ -21,9 +21,11 @@ DB_CONFIG={
 使用，减少重复代码,此处将请求参数校验函数包装，在后面每个路由复用"""
 def auth_re(f):#f代表被包装的函数
     @wraps(f)
-    def decorated_function(args,kwargs):#这个是原函数，包括两个参数,这两个参数作用分别有各自的作用如下：
+    def decorated_function(*args,**kwargs):#这个是原函数，包括两个参数,这两个参数作用分别有各自的作用如下：
         #args是一个元组，返回所有的位置参数
         #kwargs是一个字典，返回所有的关键字参数
+        #在装饰器中应该始终使用*args和**kwargs来传递参数，以确保被装饰的函数能够
+        # 正确接收所有参数，如果没有星号则会被认为必传参数，非常容易报错
 
         r = request.json.get('r') if request.is_json else None
         if not r:
@@ -36,7 +38,8 @@ def auth_re(f):#f代表被包装的函数
 这一步处理数据库连接，将数据库连接也封装为函数，以后只需创建函数对象操作数据库
 """
 def get_db_connection():
-    return pymysql.connect(**DB_CONFIG)#此处创建了一个
+    return pymysql.connect(**DB_CONFIG)
+#此处创建了一个
 #数据库连接，并传入了预先的数据库参数，此时并没有创建连接对象，只是返回一个连接
 
 
@@ -55,34 +58,20 @@ app = Flask(__name__)
 
 @app.route('/Customers', methods=['POST'])
 @auth_re
-def Customers() -> Union[dict, Response]: # type: ignore
-
-
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT prod_name FROM Products")
-                m = cursor.fetchall()
-                n = [row[0] for row in m]
-
-                return jsonify({'code':0,'msg':'成功','data':n})
-
-@app.route("/OrderItems",methods=['POST'])
-def OrderItems():
-    with pymysql.connect(
-        host=os.getenv('DB_HOST'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        db=os.getenv('DB_NAME'),
-        port=3306,
-        charset='utf8mb4'
-
-    ) as conn:
-        with conn.cursor() as cursor:
-            cursor.execute('SELECT * FROM OrderItems')
-            r = cursor.fetchall()
-            return jsonify ({'code':0,'msg':'成功获取','data':r})
-
+def Customers():
+    """
+    客户管理
+    """
+    with get_db_connection() as conn:
+        print("连接成功")#给连接创建一个对象conn
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Customers")
+        results = cur.fetchall()
+        return jsonify({'code':0,'msg':'success','data':results})
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+
 
