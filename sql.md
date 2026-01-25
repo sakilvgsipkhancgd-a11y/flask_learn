@@ -39,4 +39,16 @@ SELECT prod_id,prod_name,prod_price FROM Products ORDER BY 3,2;
 --SELECT prod_name FROM Products WHERE prod_name IS NULL;--查询产品名称为空的产品
 --SELECT prod_name FROM Products WHERE prod_name IS NOT NULL;--查询产品名称不为空的产品
 10.where子句的组合使用，包含两个操作符AND和OR，用于连接多个条件，AND表示必须同时满足多个条件，OR表示满足任意一个条件即可。
-SELECT prod_id,prod_name,prod_price FROM Products WHERE vend_id = 'DLL01' AND prod_price <= 4;--查询供应商ID为DLL01且价格小于等于4的产品ID、名称和价格
+--SELECT prod_id,prod_name,prod_price FROM Products WHERE vend_id = 'DLL01' AND prod_price <= 4;--查询供应商ID为DLL01且价格小于等于4的产品ID、名称和价格
+--SELECT prod_name,prod_price FROM Products WHERE vend_id = 'DLL01' AND prod_price >= 4;AND连接表示“且”
+--SELECT prod_name,prod_price FROM Products WHERE vend_id = 'DLL01' OR vend_id = 'BRS01';OR连接表示“或” ，只需要满足其中一个条件即可
+--SELECT prod_name,prod_price FROM Products WHERE (vend_id = 'DLL01' OR vend_id = 'BRS01') AND prod_price >= 10;AND
+--和OR可以组合使用，但是在使用时AND优先级更高，如再上例中加入没有括号会先执行AND连接的两个条件，在直接OR连接的条件，这样会导致结果不准确。
+--SELECT prod_name, prod_price FROM Products WHERE vend_id IN ('DLL01','BRS01') ORDER BY prod_name;实际上和
+  SELECT prod_name,prod_price FROM Products WHERE vend_id = 'DLL01' OR vend_id = 'BRS01';
+--是等价的，只是IN操作符更简洁。在有大量OR条件时，IN操作符的语法更快速、更易读。
+--SELECT prod_name, prod_price
+  FROM Products
+  WHERE NOT vend_id = 'DLL01'
+  ORDER BY prod_name;
+  NOT操作符表示“非”，用于否定某个条件，例如NOT vend_id = 'DLL01'表示供应商ID不是DLL01的产品。与<>操作符等价。但是更易读。
